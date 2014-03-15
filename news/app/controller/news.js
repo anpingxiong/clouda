@@ -12,6 +12,12 @@ App.news = sumeru.controller.create(function(env,session){
                       var a   = newCollection.find();
 					  console.log(a[0].name);
 
+					
+      
+		  env.subscribe('newsItem','http://www.baidu.com',function(collection){
+		   console.log(  collection.find());
+		  });			 
+		 
                session.bind('newsList',{data:newCollection.find()});        	
 	        });
 

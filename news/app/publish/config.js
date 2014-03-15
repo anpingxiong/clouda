@@ -2,6 +2,27 @@ function runnable(){
     var htmlparser = require("htmlparser");
     var  globalurl ="http://wap.baidu.com/ssid=0/from=0/bd_page_type=1/uid=0/pu=sz%40224_220%2Cta%40middle___3_537";
 	var config={};
+
+   //这是用来抓取你传入的新闻地址的config  传入地址网页都是布局相同的，否则会出错::
+	config['newsItem']={
+	
+	   uniqueColumn:'name',
+	   fetchUrl:function(url){
+		   return url.url;
+	   
+	   },
+	   
+        geturl:function(){
+		  	
+		},
+	   resolve:function(originData){
+	     return [{'name':'122','context':'aaa','url':'aa'}];
+	   }
+	
+	};
+
+
+	//这是用来抓取指定地址的config 
 	config['pubext']={
 		uniqueColumn:'name',
 		fetchUrl : function(){
