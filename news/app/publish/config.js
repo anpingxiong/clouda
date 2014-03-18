@@ -8,18 +8,63 @@ function runnable(){
 	
 	   uniqueColumn:'name',
 	   fetchUrl:function(url){
-		   return url.url;
+		   return url.url.url;
 	   
 	   },
 	   
         geturl:function(){
 		  	
 		},
+
+
 	   resolve:function(originData){
-	     return [{'name':'122','context':'aaa','url':'aa'}];
+
+		   //分析html,拿到文本内容
+         var  dataFromBaidu  = originData.match(/<p style="text-indent:.*/);
+		 
+		 dataFromBaidu  = dataFromBaidu[0];
+         var  stringNew ="";
+	     var handler = new htmlparser.DefaultHandler(function (error, dom) {
+			     if (error)
+			         console.log('解析出错了');
+			     else{
+                   //拿出所有的p  来
+				   for(var i=0 ;i<dom.length;i++){
+				       var  raw = dom[i].name;
+					   if(raw=='p'){
+
+                       
+						  var  children  = dom[i].children[0];
+                          
+						  if(children!=undefined && children.type=='text'){
+						      stringNew  = stringNew.concat('<p>');
+							   stringNew  = stringNew.concat(children.data);
+							   stringNew  = stringNew.concat("</p>");
+
+						  }
+						 
+					   }
+				   }
+             
+				 }
+		  });
+
+		  
+          var parser = new htmlparser.Parser(handler);
+		  parser.parseComplete(dataFromBaidu);
+ 
+
+		
+		 var  data    = [{
+			  'name':'new',
+			  'context':stringNew,
+			  'url':'null'
+			}];
+
+		   return data;
 	   }
 	
-	};
+	}
 
 
 	//这是用来抓取指定地址的config 

@@ -9,17 +9,8 @@ App.news = sumeru.controller.create(function(env,session){
 	 var  news = function(){
            console.log('进入抓取网页');
 		   env.subscribe("pubext",function(newCollection){
-                      var a   = newCollection.find();
-					  console.log(a[0].name);
-
-					
-      
-		  env.subscribe('newsItem','http://www.baidu.com',function(collection){
-		   console.log(  collection.find());
-		  });			 
-		 
-               session.bind('newsList',{data:newCollection.find()});        	
-	        });
+			   session.bind('newsList',{data:newCollection.find()});        	
+			   });
 
 	 };
 	//第一个时态用来加载数据
@@ -33,6 +24,20 @@ App.news = sumeru.controller.create(function(env,session){
 	env.onrender=function(doRender){
 		doRender('news',['push','left']);
 	};
+  
+	//第三个时态用来绑定事件
+	env.onready=function(){
+          session.event('newsList',function(){
+              $('#showNewsDiv').click(function(event){
+                  var  target  = event.target;
+				  if(target.localName=='li'){
+                     var href = target.children[0].href;
+					 console.log(href);
 
+					 env.redirect('/newsItem',{'url':href});
+				  }
+			  }); 	
+		  });	
+	};
 
 });

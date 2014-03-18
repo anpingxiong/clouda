@@ -13,7 +13,6 @@ module.exports = function(fw){
 		//抓取某一个新闻  需要传入参数
 		fw.publish('new','newsItem',function(url,callback){
 			var  collection = this;
-  
                 //clouda 官网不完善
 			collection.extfind('newsItem',{'url':url},callback);
 		});
