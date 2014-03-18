@@ -20,10 +20,11 @@ function runnable(){
 	   resolve:function(originData){
 
 		   //分析html,拿到文本内容
-         var  dataFromBaidu  = originData.match(/<p style="text-indent:.*/);
-		 
+         var  dataFromBaidu  = originData.match(/<p style=".*/);
+		var stringNew ="";
+		 if(dataFromBaidu!=undefined) {
 		 dataFromBaidu  = dataFromBaidu[0];
-         var  stringNew ="";
+        
 	     var handler = new htmlparser.DefaultHandler(function (error, dom) {
 			     if (error)
 			         console.log('解析出错了');
@@ -31,7 +32,7 @@ function runnable(){
                    //拿出所有的p  来
 				   for(var i=0 ;i<dom.length;i++){
 				       var  raw = dom[i].name;
-					   if(raw=='p'){
+					   if(raw=='p' &&  dom[i].children!=undefined){
 
                        
 						  var  children  = dom[i].children[0];
@@ -54,7 +55,9 @@ function runnable(){
 		  parser.parseComplete(dataFromBaidu);
  
 
-		
+		}else{
+		  stringNew="抱歉，没有数据";
+		}
 		 var  data    = [{
 			  'name':'new',
 			  'context':stringNew,

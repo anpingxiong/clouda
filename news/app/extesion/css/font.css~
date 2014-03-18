@@ -1,0 +1,2 @@
+.left-font {
+-moz-transform: rotate(-90deg);-webkit-transform: rotate(-90deg);  display: block;position: absolute;filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3)}

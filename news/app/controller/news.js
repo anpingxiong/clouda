@@ -34,7 +34,7 @@ App.news = sumeru.controller.create(function(env,session){
                      var href = target.children[0].href;
 					 console.log(href);
 
-					 env.redirect('/newsItem',{'url':href});
+					 env.redirect('/newsItem',{'url':href},true);
 				  }
 			  }); 	
 		  });	
